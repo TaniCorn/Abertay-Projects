@@ -1,0 +1,2 @@
+This extends upon my original CMP105 application. As such the original code quality is not the best as it can be.
+Furhurmore, I've only attached the necessary files and it does not encompass the original project.
