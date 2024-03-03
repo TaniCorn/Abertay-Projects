@@ -79,9 +79,7 @@ float4 main(InputType input) : SV_TARGET
         result = float4(ShaderModel2(result.x), ShaderModel2(result.y), ShaderModel2(result.z), ShaderModel2(result.w));
 
     }
-    //result = float4(result.x / result.w, result.y / result.w, result.z / result.w, result.w / result.w);
     float4 endResult = saturate(result * textureColour);
-    //float4 result = LightAndShadowCalculation(shadowTextures, lights, input.lightViewPos, shadowSampler, input.normal, input.worldPosition, input.cameraPosition, shadowBias);
-    return endResult; // + ambient;(input.normal.x, input.normal.y, input.normal.z, 1);
+    return endResult;
 
 }

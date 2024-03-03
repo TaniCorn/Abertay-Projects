@@ -48,7 +48,6 @@ float4 main(InputType input) : SV_TARGET
             result += LightAndShadowCalculation(shadowTextures[i], lights[i], input.lightViewPos[i], shadowSampler, input.normal, input.worldPosition, input.cameraPosition, shadowBias, ambientLight);
             
         }
-        //result += CalculateLight(lights[i], input.normal, input.worldPosition, input.cameraPosition);
         
     }
     
@@ -56,15 +55,7 @@ float4 main(InputType input) : SV_TARGET
     {
         result = float4(ShaderModel2(result.x), ShaderModel2(result.y), ShaderModel2(result.z), ShaderModel2(result.w));
     }
-    //result = float4(result.x / result.w, result.y / result.w, result.z / result.w, result.w / result.w);
-    //result = float4(result / result.w);
     float4 endResult = saturate(result * textureColour);
     
-    return endResult; // + ambient;
+    return endResult;
 }
-
-
-
-//float3 norm = floor(input.normal * 100.0f) / 100.0f;
-//float3 worldpos = floor(input.worldPosition);
-

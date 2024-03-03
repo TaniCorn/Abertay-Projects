@@ -14,36 +14,6 @@
 #include <iostream>
 #include <string>
 
-//Redundant
-//void CollisionMapRead(Room& nm) {
-//    //std::ofstream collisionMap;//
-//    std::ifstream collisionMap;
-//    collisionMap.open("CollisionMap.txt");
-//
-//    std::vector<Vector2<int>> obstacleLocations;
-//    std::string line;
-//    std::vector<std::string> txtInfo;
-//    if (collisionMap.is_open())
-//    {
-//        while (std::getline(collisionMap, line)) {
-//            txtInfo.push_back(line);
-//        }
-//        txtInfo[0].replace(txtInfo[0].find("NodeSize:"), txtInfo[0].find_last_of("NodeSize:") + 1, "");
-//    }
-//    nm.SetNodeSize(std::stoi(txtInfo[0]));
-//
-//    for (int i = 1; i < txtInfo.size(); i++)
-//    {
-//        int xStart = 0;
-//        int xEnd = txtInfo[i].find_last_of(':') + 1;
-//        int xCoord = std::stoi(txtInfo[i].substr(xStart, xEnd));
-//        int yStart = txtInfo[i].find_last_of(':') + 1;
-//        int yEnd = txtInfo[i].npos;
-//        int yCoord = std::stoi(txtInfo[i].substr(yStart, yEnd));
-//        obstacleLocations.push_back(Vector2<int>{xCoord, yCoord});
-//    }
-//    nm.SetObstacleLocations(obstacleLocations);
-//}
 
 /// <summary>
 /// Prints map in 0 1 and 2's
@@ -71,24 +41,7 @@ void PrintMap(const int& xSize, const int& ySize, Node** f) {
         newLine = true;
 
     }
-    //Debugging
-    //newLine = false;
-    //for (int y = 0; y < ySize; y++)
-    //{
-    //    for (int x = 0; x < xSize; x++)
-    //    {
-    //        if (newLine)
-    //        {
-    //            std::cout << '\n';
-    //            std::cout << f[x][y].position.x << "," << f[x][y].position.y << "|";
-    //            newLine = false;
-    //        }
-    //        else {
-    //            std::cout << f[x][y].position.x << "," << f[x][y].position.y << "|";
-    //        }
-    //    }
-    //    newLine = true;
-    //}
+   
 }
 
 /// <summary>

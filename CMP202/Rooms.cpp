@@ -43,13 +43,6 @@ void Room::LinkNeighbours(Room& nm)
 	{
 		for (int x = 1; x < xBound; x++)
 		{
-			//Node* a = &nodes[x][y];//For debugging
-			//Node* b = &nodes[1][1];//For debugging
-			//Node* c = &nodes[2][1];//For debugging
-			//Node* d = &nodes[1][2];//For debugging
-			//Node* e = &nodes[0][0];//For debugging
-			//Node* f = &nodes[2][2];//For debugging
-			//Node* g = &nodes[0][2];//For debugging
 			nodes[x][y].neighbours[0] = &nodes[x][y - 1];
 			nodes[x][y].neighbours[1] = &nodes[x + 1][y];
 			nodes[x][y].neighbours[2] = &nodes[x][y + 1];
@@ -149,46 +142,6 @@ void Room::LinkNeighbours(Room& nm)
 	nodes[xBound][yBound].neighbours[5] = nullptr;
 	nodes[xBound][yBound].neighbours[6] = nullptr;
 	nodes[xBound][yBound].neighbours[7] = nullptr;
-
-	/*for (int x = 0; x < xSize; x++)
-	{
-		for (int y = 0; y < ySize; y++)
-		{
-			if (x == 0 && y == ySize)//Don't link [3][4][7][2][6]
-			{
-
-			}
-			if (x == 0 && y == 0)//Don't link [3][4][7][0][5]
-			{
-
-			}
-			if (x == xSize && y == 0)//Don't link [1][5][6][0][4]
-			{
-
-			}
-			if (x == xSize && y == ySize)//Don't link[1][5][6][2][7]
-			{
-
-			}
-			if (x == 0)//Don't link [3][4][7]
-			{
-
-			}
-			if (x == xSize)//Don't link[1][5][6]
-			{
-
-			}
-			if (y == 0)//Don't link[0][4][5]
-			{
-
-			}
-			if (y == ySize)//Don't link[2][6][7]
-			{
-
-			}
-
-		}
-	}*/
 #pragma endregion
 }
 

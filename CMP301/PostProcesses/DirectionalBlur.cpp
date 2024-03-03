@@ -30,7 +30,11 @@ DirectionalBlur::~DirectionalBlur()
 		screenSizeBuffer->Release();
 		screenSizeBuffer = 0;
 	}
-
+	if (weightBuffer)
+	{
+		weightBuffer->Release();
+		weightBuffer = 0;
+	}
 	//Release base shader components
 	BaseShader::~BaseShader();
 }

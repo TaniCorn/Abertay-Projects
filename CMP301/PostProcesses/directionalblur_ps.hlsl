@@ -43,23 +43,6 @@ float4 main(InputType input) : SV_TARGET
     float texelSizeX = texel / screenWidth;
     float texelSizeY = texel / screenHeight;
     
-    
-    //int i = 0;
-    //float weights[4] = { 0.4, 0.2, 0.1, 0.05 };
-    //for (int x = 0; x < 4; x++)
-    //{
-    //    for (int y = 0; y < 4; y++)
-    //    {
-    //        i++;
-    //        colour += shaderTexture.Sample(SampleType, input.tex + (float2(x * weightDirection.x * texelSizeX, y * weightDirection.y * texelSizeY) * strength));
-    //    }
-    //}
-    //colour /= i;
-    //colour += shaderTexture.Sample(SampleType, input.tex) * weight0;
-    //colour += shaderTexture.Sample(SampleType, input.tex + (float2(1 * weightDirection.x * texelSizeX, 1 * weightDirection.y * texelSizeY) * strength)) * weight1;
-    //colour += shaderTexture.Sample(SampleType, input.tex + (float2(2 * weightDirection.x * texelSizeX, 2 * weightDirection.y * texelSizeY) * strength)) * weight2;
-    //colour += shaderTexture.Sample(SampleType, input.tex + (float2(3 * weightDirection.x * texelSizeX, 3 * weightDirection.y * texelSizeY) * strength)) * weight3;
-    //colour += shaderTexture.Sample(SampleType, input.tex + (float2(4 * weightDirection.x * texelSizeX, 4 * weightDirection.y * texelSizeY) * strength)) * weight4;
     if (dragAmount <= 0.001f)
     {
         for (int i = 0; i < sampleAmount; i++)
@@ -78,8 +61,7 @@ float4 main(InputType input) : SV_TARGET
     }
 
     colour /= sampleAmount;
-	// Set the alpha channel to one.
-        colour.a = 1.0f;
+    colour.a = 1.0f;
 
     return colour;
 }

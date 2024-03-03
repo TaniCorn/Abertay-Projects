@@ -161,26 +161,6 @@ float4 variableGaussian(float2 uv)
         r += (shaderTexture.Sample(SampleType, uvOff).r * weight);
         g += (shaderTexture.Sample(SampleType, uvOff).g * weight);
         b += (shaderTexture.Sample(SampleType, uvOff).b * weight);
-        
-        //uvOff = uv; // + (float(i) / screenResolution.x);
-        //uvOff.y += ((float(i) - (float(its) / 2)) / (screenResolution.y * texelSize));
-        //r += (shaderTexture.Sample(SampleType, uvOff).r * weight);
-        //g += (shaderTexture.Sample(SampleType, uvOff).g * weight);
-        //b += (shaderTexture.Sample(SampleType, uvOff).b * weight);
-        
-        //uvOff = uv; // + (float(i) / screenResolution.x);
-        //uvOff.y += ((float(i) - (float(its) / 2)) / (screenResolution.y * texelSize));
-        //uvOff.x += ((float(i) - (float(its) / 2)) / (screenResolution.x * texelSize));
-        //r += (shaderTexture.Sample(SampleType, uvOff).r * weight);
-        //g += (shaderTexture.Sample(SampleType, uvOff).g * weight);
-        //b += (shaderTexture.Sample(SampleType, uvOff).b * weight);
-        
-        //uvOff = uv; // + (float(i) / screenResolution.x);
-        //uvOff.y -= ((float(i) - (float(its) / 2)) / (screenResolution.y * texelSize));
-        //uvOff.x -= ((float(i) - (float(its) / 2)) / (screenResolution.x * texelSize));
-        //r += (shaderTexture.Sample(SampleType, uvOff).r * weight);
-        //g += (shaderTexture.Sample(SampleType, uvOff).g * weight);
-        //b += (shaderTexture.Sample(SampleType, uvOff).b * weight);
     }
 
     return float4(r, g, b, 1);

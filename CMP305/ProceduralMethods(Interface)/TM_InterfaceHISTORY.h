@@ -137,16 +137,6 @@ public:
 
 
 ///////////////SAVE AND LOAD
-	//struct HistoryKey {
-	//	int smoothingPost;
-	//	int smoothAmount;
-	//	bool ridgify;
-	//	int ridgeType;
-	//	bool bounds;
-	//	int lowerBound, upperBound;
-	//	std::string function;
-	//	std::vector<std::string> parameters;
-	//};
 
 	/// <summary>
 	/// Takes currentHistory and saves it to a file

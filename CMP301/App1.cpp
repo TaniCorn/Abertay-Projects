@@ -21,11 +21,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	manipulatedMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext(), 10);
-	//lightShader = new LightShader(renderer->getDevice(), hwnd);
-	//flatShader = new FlatShader(renderer->getDevice(), hwnd);
 	frankShader = new FrankLunaShader(renderer->getDevice(), hwnd);
-	//bandShader = new BandShader(renderer->getDevice(), hwnd);
 	currentShader = frankShader;
 
 
@@ -52,19 +48,9 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	{
 		shadowMap[i] = new ShadowMap(renderer->getDevice(), shadowmapWidth, shadowmapHeight);
 	}
-	//lightsInScene[0] = LightShader::LightData(XMFLOAT3(0, -1, 0), XMFLOAT4(0.3, 0.1, 0.1, 0.2));
-	//lightsInScene[1] = LightShader::LightData(XMFLOAT4(1, 1, 1, 1), XMFLOAT3(1, 1, 1));
-	//lightsInScene[1] = LightShader::LightData(XMFLOAT4(0, 0, 0, 0), XMFLOAT4(1, 1, 1, 1), true);
-	//lightsInScene[2] = LightShader::LightData(XMFLOAT4(10, 10, 10, 1), XMFLOAT4(0, 1, 0, 1), XMFLOAT4(1, 0, 0, 1));
-
-
-
 
 	quadTessShader = new QuadTessShader(renderer->getDevice(), hwnd);
 	manipulatedMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext(), 100);
-
-
-
 
 	textureShader = new TextureShader(renderer->getDevice(), hwnd);
 	kernalOM = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), screenWidth, screenHeight);	// Full screen size
@@ -155,8 +141,6 @@ App1::~App1()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
-
-	// Release the Direct3D object.
 	
 }
 
@@ -236,10 +220,6 @@ bool App1::firstPass()
 	cubeMesh->sendData(renderer->getDeviceContext());
 	currentShader->setShaderParameters(renderer->getDeviceContext(), XMMatrixMultiply(worldMatrix, XMMatrixTranslation(20, 11, 20)), viewMatrix, projectionMatrix, textureMgr->getTexture(L"brick"), shadowMapSRV, lightsInScene, shadowOrthoMatrix, shadowViewMatrix, camera->getPosition(), shadowBias, lightingModel);
 	currentShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-
-	//planeMesh->sendData(renderer->getDeviceContext());
-	//currentShader->setShaderParameters(renderer->getDeviceContext(), XMMatrixMultiply(worldMatrix, XMMatrixTranslation(0, -5, -10)), viewMatrix, projectionMatrix, textureMgr->getTexture(L"wood"), shadowMapSRV, lightsInScene, shadowOrthoMatrix, shadowViewMatrix, camera->getPosition(), shadowBias);
-	//currentShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	for (int i = 0; i < MAX_LIGHTS; i++)
 	{
@@ -380,9 +360,7 @@ bool App1::shadowPass()
 		cubeMesh->sendData(renderer->getDeviceContext());
 		depthShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix * XMMatrixTranslation(20, 11, 20), lightViewMatrix, lightOrthoMatrix);
 		depthShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-		//planeMesh->sendData(renderer->getDeviceContext());
-		//depthShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix * XMMatrixTranslation(0, -5, -10), lightViewMatrix, lightOrthoMatrix);
-		//depthShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
 		// Set back buffer as render target and reset view port.
 		renderer->setBackBufferRenderTarget();
 		renderer->resetViewport();
@@ -426,20 +404,15 @@ void App1::gui()
 			case 0:
 				currentShader = frankShader;
 				shaderName = "Frank D. Luna Shader";
-				//currentShader = lightShader;
-				//shaderName = "Default Shader";
 				break;
 			case 1:
 				shaderName = "Square Shader";
 
 				break;
 			case 2:
-				//currentShader = flatShader;
 				shaderName = "Band Shader";
 				break;
 			case 3:
-				/*currentShader = bandShader;
-				shaderName = "Band Shader";*/
 				shaderName = "Not Available";
 			default:
 				shaderName = "Not Available";

@@ -93,9 +93,6 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	camPtr = (CameraBufferType*)mappedResource.pData;
 	camPtr->cameraPosition = cameraPosition;
 	camPtr->padding = 0;
-	/*XMVECTOR cameraPosition;
-	XMMatrixInverse(&cameraPosition, viewMatrix);
-	XMStoreFloat3(&camPtr->cameraPosition, cameraPosition);*/
 	deviceContext->Unmap(cameraBuffer, 0);
 	deviceContext->VSSetConstantBuffers(1, 1, &cameraBuffer);
 

@@ -41,19 +41,6 @@ float4 calculatePointLighting(float3 lightVec, float3 normal, float4 ldiffuse)
 	float4 colour = saturate(ldiffuse * intensity);
 	return colour;
 }
-//float4 calculateSpotLighting(float3 lightVec, float3 lightDirection, float3 normal, float4 ldiffuse, float lightMag)
-//{
-//    float3 lightNormVec = normalize(lightVec);
-//    float diffuseIntensity = saturate(dot(normal, lightNormVec));
-
-//    float angleMult = pow(max(dot(-lightDirection.xyz, lightNormVec), 0), 5/*Angle*/);
-
-//    diffuseIntensity = angleMult;
-
-//    float4 colour = saturate(ldiffuse * diffuseIntensity);
-    
-//    return colour;
-//}
 
 float calculateSpecularPhong(float3 lightVec, float3 normal, float3 cameraVec, float4 specularColour, float specularPower)
 {
@@ -87,8 +74,7 @@ float4 CalculatePointLight(Light light, float3 normal, float3 worldPosition)
     result = calculatePointLighting(lightVector, normal, light.diffuse);
     return result;
 }
-//When passing Light into this function, light.diffuse works fine. 
-//However when passing light.diffuse into the next function, only the x value gets passed and a float4 only has one value
+
 float4 CalculateSpotLight(Light light, float3 normal, float3 worldPosition)
 {
     float lightMag = distance(worldPosition.xyz, light.position.xyz);
@@ -113,7 +99,6 @@ float4 CalculateSpecularLight(Light light, float3 normal, float3 viewVector,floa
 }
 float CalculateAttenuation(Light light, float3 worldPosition)
 {
-    //Attenuation
     float lightMag;
     lightMag = distance(worldPosition, light.position.xyz);
     float attenuation = 1 / (light.attenuationValues.x /*x*/ + (light.attenuationValues.y /*y*/ * lightMag) + (light.attenuationValues.z /*z*/ * pow(lightMag, 2)));

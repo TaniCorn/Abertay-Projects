@@ -58,18 +58,6 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, CONTROLPOINTS> in
     float LOD3 = ComputePatchLOD(edgeMidPoints[3], cameraPosition.xyz, minMaxLOD.x, minMaxLOD.y, atten);
     float LODI = (LOD0 + LOD1 + LOD2 + LOD3) / 4.0f;
     
-    //float minSteepness = min(inputPatch[0].position.y, inputPatch[1].position.y);
-    //minSteepness = min(minSteepness, inputPatch[2].position.y); 
-    //minSteepness = min(minSteepness, inputPatch[3].position.y);
-    //minSteepness = min(minSteepness, inputPatch[4].position.y);
-    //minSteepness = min(minSteepness, inputPatch[5].position.y);    
-    
-    //float maxSteepness = max(inputPatch[0].position.y, inputPatch[1].position.y);
-    //maxSteepness = max(maxSteepness, inputPatch[2].position.y);
-    //maxSteepness = max(maxSteepness, inputPatch[3].position.y);
-    //maxSteepness = max(maxSteepness, inputPatch[4].position.y);
-    //maxSteepness = max(maxSteepness, inputPatch[5].position.y);
-    
     float SLOD0 = abs(inputPatch[2].position.y - inputPatch[0].position.y);
     float SLOD1 = abs(inputPatch[0].position.y - inputPatch[4].position.y);
     float SLOD2 = abs(inputPatch[4].position.y - inputPatch[5].position.y);
@@ -86,14 +74,7 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, CONTROLPOINTS> in
     output.inside[0] = 
     output.inside[1] = LODI + (SLODI * steepnessScale);
     
-    //Identity for debug
-    //output.edges[0] =
-    //output.edges[1] =
-    //output.edges[2] =
-    //output.edges[3] = 1;
-    //output.inside[0] =
-    //output.inside[1] = 1;
-        return output;
+    return output;
 }
 
 
@@ -105,18 +86,9 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, CONTROLPOINTS> in
 OutputType main(InputPatch<InputType, CONTROLPOINTS> patch, uint pointId : SV_OutputControlPointID, uint patchId : SV_PrimitiveID)
 {
     OutputType output;
-
-
-    // Set the position for this control point as the output position.
-    output.position = patch[pointId].position;
-    //if (5 == pointId)
-    //{
-    //    output.position.y += 1;
-    //}
-
-    // Set the input colour as the output colour.
-    output.tex = patch[pointId].tex;
     
+    output.position = patch[pointId].position;
+    output.tex = patch[pointId].tex;
     output.normal = patch[pointId].normal;
 
     return output;

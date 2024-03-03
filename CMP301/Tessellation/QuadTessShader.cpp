@@ -26,7 +26,11 @@ QuadTessShader::~QuadTessShader()
 		layout->Release();
 		layout = 0;
 	}
-
+	if (heightMapBuffer)
+	{
+		heightMapBuffer->Release();
+		heightMapBuffer = 0;
+	}
 	//Release base shader components
 	MultiLightShader::~MultiLightShader();
 
@@ -34,8 +38,6 @@ QuadTessShader::~QuadTessShader()
 
 void QuadTessShader::initShader(const wchar_t* vsFilename, const wchar_t* psFilename)
 {
-
-
 	// Load (+ compile) shader files
 	loadVertexShader(vsFilename);
 	loadPixelShader(psFilename);

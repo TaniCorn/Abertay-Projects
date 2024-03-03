@@ -513,39 +513,13 @@ void App1::gui()
 			LSystemGUI();
 		}
 
-		//if (m_Water->resizeTerrain) {
-		//	m_Water->resizeTerrain = false;
-		//	m_Water->Resize(m_Water->GetResolution());
-		//	m_Water->currentInterface->update = true;
-		//	
-		//	
-		//}
-		//if (m_Water->currentInterface != nullptr) {
-		//	if (m_Water->currentInterface->update)
-		//	{
-		//		m_Water->Regenerate(renderer->getDevice(), renderer->getDeviceContext());
-
-		//	}
-		//}
-
-		//if (ImGui::CollapsingHeader("Water Terrain"))
-		//{
-		//	ImGui::Checkbox("Water Enabled", &water);
-		//	if (water)
-		//		m_Water->HandleGUI();
-		//}
-		//	
-
-
 	tripleTerrain->historyInterface.HandleGUI();
 	if (tripleTerrain->historyInterface.opened)
 	{
 		tripleTerrain->historyInterface.opened = false;
 		tripleTerrain->UseHistory();
 	}
-	//tripleTerrain->InImage(renderer->getDevice());
-	//ImGui::ShowDemoWindow();
-	// Render UI
+
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

@@ -58,35 +58,8 @@ public:
 		return Vector2<float>(static_cast<Vector2<float>>(*this) / this->Magnitude());
 	}
 	/// <summary>
-/// The EUCLIDEAN distance from this vector and the given coordinates (x and y)
-/// </summary>
-/// <returns>EUCLIDEAN DISTANCE</returns>
-	//int DistanceFrom(T x, T y) { return sqrt((abs(x - this->x) * abs(x - this->x)) + (abs(y - this->y) * abs(y - this->y))); }
-	///// <summary>
-	///// The EUCLIDEAN distance from this vector and the given vector
-	///// </summary>
-	///// <returns>EUCLIDEAN DISTANCE</returns>
-	//float DistanceFrom(const Vector2<T>& pos) {
-	//	int xl = abs(pos.x - x); int yl = abs(pos.y - y);
-	//	float sq = sqrt(abs(xl * xl) + abs(yl * yl));
-	//	return sq;
-	//}
-	///// <summary>
-	///// The EUCLIDEAN distance between two given vectors
-	///// <para> From vector A to vector B</para>
-	///// </summary>
-	///// <param name="Vector A"></param>
-	///// <param name="Vector B"></param>
-	///// <returns>EUCLIDEAN DISTANCE</returns>
-	//static float DistanceBetween(const Vector2& a, const Vector2& b) {
-	//	int x = abs(b.x - a.x); int y = abs(b.y - a.y);
-	//	float sq = sqrt(abs(x * x) + abs(y * y));
-	//	return sq;
-	//}	
-	/// <summary>
 	/// The EUCLIDEAN distance from this vector and the given vector
 	/// </summary>
-	/// <returns>EUCLIDEAN DISTANCE</returns>
 	float DistanceFrom(const Vector2<T>& pos) {
 		int xl = abs(pos.x - x); int yl = abs(pos.y - y);
 		float sq = sqrt((xl*xl) + (yl * yl));
@@ -96,9 +69,6 @@ public:
 	/// The EUCLIDEAN distance between two given vectors
 	/// <para> From vector A to vector B</para>
 	/// </summary>
-	/// <param name="Vector A"></param>
-	/// <param name="Vector B"></param>
-	/// <returns>EUCLIDEAN DISTANCE</returns>
 	static float DistanceBetween(const Vector2& a, const Vector2& b) {
 		int x = abs(b.x - a.x); int y = abs(b.y - a.y);
 		float sq = sqrt((x * x) + (y * y));
@@ -112,23 +82,9 @@ public:
 //Although maybe when I test the others i'll find out the assigment/increments (+= -+) will need to be inside the class
 
 #pragma region OPERATOR FUNCTIONS
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> Vector2<T> operator +(const Vector2<T>& lhs, const Vector2<T>& rhs) {
 	return Vector2<T>((lhs.x + rhs.x), (lhs.y + rhs.y));
 }
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> Vector2<T> operator -(const Vector2<T>& lhs, const Vector2<T>& rhs) {
 	return Vector2<T>((lhs.x - rhs.x), (lhs.y - rhs.y));
 }
@@ -138,110 +94,39 @@ template <typename T> Vector2<float> operator -(const Vector2<T>& lhs, const Vec
 template <typename T, typename U> Vector2<float> operator -(const Vector2<T>& lhs, const Vector2<U>& rhs) {
 	return Vector2<float>((lhs.x - rhs.x), (lhs.y - rhs.y));
 }
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> Vector2<T> operator /(const Vector2<T>& lhs, const T& rhs) {
 	return Vector2<T>((lhs.x / rhs), (lhs.y / rhs));
 }
 template <typename T> Vector2<T> operator *(const Vector2<T>& lhs, const T& rhs) {
 	return Vector2<T>((lhs.x * rhs), (lhs.y * rhs));
 }
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> void operator +=(Vector2<T>& lhs, const Vector2<T>& rhs) {
-	//lhs.x = lhs.x + rhs.x;
-	//lhs.y = lhs.y + rhs.y;
-	//return *lhs;
 	lhs.x = lhs.x + rhs.x;
 	lhs.y = lhs.y + rhs.y;
 	return;
 }
-
-/// <summary>
-/// This Works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> void operator -=(Vector2<T>& lhs, const Vector2<T>& rhs) {
-	//lhs.x = lhs.x - rhs.x;
-	//lhs.y = lhs.y - rhs.y;
-	//return *lhs;
 	lhs.x = lhs.x - rhs.x;
 	lhs.y = lhs.y - rhs.y;
 	return;
 }
-/// <summary>
-/// untested
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
 template <typename T> void operator /=(const Vector2<T>& lhs, const T& rhs) {
 	lhs.x = lhs.x / rhs.x;
 	lhs.y = lhs.y / rhs.y;
 	return;
 }
-/// <summary>
-/// Untested
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> bool operator ==(const Vector2<T>& lhs, const Vector2<T>& rhs) {
 	return (lhs.x == rhs.x && lhs.y == rhs.y);
 }
-/// <summary>
-/// Untested
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> bool operator !=(const Vector2<T>& lhs, const Vector2<T>& rhs) {
 	return !(lhs.x == rhs.x && lhs.y == rhs.y);
 }
-
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> bool operator >(const Vector2<T>& lhs, const Vector2<T>& rhs) {
 	return (lhs.Magnitude() > rhs.Magnitude());
 }
-/// <summary>
-/// This works
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="lhs"></param>
-/// <param name="rhs"></param>
-/// <returns></returns>
 template <typename T> bool operator <(const Vector2<T>& lhs, const Vector2<T>& rhs){
 	return (lhs.Magnitude() < rhs.Magnitude());
 }
-
-/// <summary>
-/// Streams out "X: vector.x Y: vector.y"
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="stream"></param>
-/// <param name="vector"></param>
-/// <returns></returns>
 template<typename T> std::ostream& operator<<(std::ostream& stream, Vector2<T> const& vector)
 {
 	return stream << "X:" << vector.x << " Y:" << vector.y;
@@ -250,44 +135,3 @@ template<typename T> std::ostream& operator<<(std::ostream& stream, Vector2<T> c
 
 
 #endif // !VECTOR2_H
-
-/*
-///Not called?
-//template <typename T> Vector2<T> operator +(const Vector2<T>& rhs) {
-//	this.x += rhs.x;
-//	this.y += rhs.y;
-//	return this;
-//
-//	//Vector2<T> newVector;
-//	//newVector.x = lhs.x + rhs.x;
-//	//newVector.y = lhs.y + rhs.y;
-//	//return newVector;
-//}
-	////bool operator <(const Vector2<T>* a) {
-	////	return (Magnitude() < a->Magnitude());
-	////}
-	////bool operator >(const Vector2<T>* a) {
-	////	return (Magnitude() > a->Magnitude());
-	////}
-
-	////constexpr Vector2<T>& operator ()(const Vector2<T>& copy) {
-	////	lhs->x = x + rhs->x;
-	////	lhs->y = y + rhs->y;
-	////	return lhs;
-	////}
-	//// Vector2<T>& operator -(const Vector2<T>& rhs) { //messy
-	////	//x = x - rhs.x;
-	////	//y = y - rhs.y;
-	////	//return *this;
-	////	std::shared_ptr<Vector2<T>> newVector(new Vector2<T>);
-	////	newVector->x = x - rhs.x;
-	////	newVector->y = y - rhs.y;
-	////	return *newVector;
-	////}
-	//// Vector2<T> operator +(const Vector2<T>& rhs) { //messy
-	////	 std::shared_ptr<Vector2<T>> newVector(new Vector2<T>);
-	////	 newVector->x = x + rhs.x;
-	////	 newVector->y = y + rhs.y;
-	////	 return *newVector;
-	////}
-	*/

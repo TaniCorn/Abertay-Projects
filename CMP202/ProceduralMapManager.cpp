@@ -3,15 +3,10 @@
 
 #include <chrono>
 #include <iostream>
-//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-//std::cout << ms << std::endl;
-
 void ProceduralMapManager::GenerateMapGrid()
 {
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-	int	roomXAmount = xDimension;//In case I want to change it...
+	int	roomXAmount = xDimension;
 	int roomYAmount = yDimension;
 
 	//Create Rooms for map
@@ -48,8 +43,6 @@ void ProceduralMapManager::GenerateMapGrid()
 				//After some testing, unable to determine which is faster.
 				//This is probably due to this being CPU parallelisation which doesn't have as big of an emphasis on data access, cache as GPU does
 	
-				//int xDim = currentRoomNumber % roomXAmount;//(0,1,2,3,4,,0,1,2,3...)
-				//int yDim = floor(currentRoomNumber / roomXAmount);//(0,0,0,0,1,1,1...)				
 				int xDim = floor(currentRoomNumber / roomYAmount);//(0,1,2,3,4,,0,1,2,3...)
 				int yDim = currentRoomNumber % roomYAmount;//(0,0,0,0,1,1,1...)
 				Room* currentRoom = &roomsInMap[xDim][yDim];

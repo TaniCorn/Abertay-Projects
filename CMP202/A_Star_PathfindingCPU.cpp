@@ -11,19 +11,9 @@ std::vector<ExportData> ExportBenchmark::data8;
 std::vector<ExportData> ExportBenchmark::data16;
 std::vector<ExportData>* ExportBenchmark::current = &data;
 
-/*std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-auto ms = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-std::cout << "A_Star_PathfindingCPU::SetUpStartAndEndNodes() takes - " << ms << "ms" << std::endl;
-std::cout << "Main thread exiting"*/;
-
-//const int threadsToUse = 6;//Amount of threads to run for farming
-//const int neighbourModifier = 1;
-
 #pragma region BASE_ASTAR
 bool Base_A_Star_PathfindingCPU::SetUpStartAndEndNodes(Vector2<int> startPos, Vector2<int> endPos)
 {
-	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 	//Run Async functions to find node from positions
 	std::future<Node*> startNode_fut = std::async(std::launch::async, &Base_A_Star_PathfindingCPU::GetNodeFromPosition,this, startPos);
 	std::future<Node*> endNode_fut = std::async(std::launch::async, &Base_A_Star_PathfindingCPU::GetNodeFromPosition,this, endPos);
@@ -47,11 +37,6 @@ bool Base_A_Star_PathfindingCPU::SetUpStartAndEndNodes(Vector2<int> startPos, Ve
 		if (IsNodeInRoom(*var, Vector2<int>(startNode->xPosition, startNode->yPosition)))
 		{
 			startRoom = var;
-			//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now(); 
-			//auto ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-			////std::cout << "A_Star_PathfindingCPU::SetUpStartAndEndNodes() takes - " << ms << "ms" << std::endl;
-			//ExportData ed; ed.areaName = "A_Star_PathfindingCPU::SetUpStartAndEndNodes()"; ed.timings = ms;
-			//ExportBenchmark::AddBenchmarkingInfo(ed);
 			return true;
 		}
 	}
@@ -202,7 +187,6 @@ std::queue<Node*> A_Star_Pathfinding_Defined_SegmentedCPU::FindRouteNodePaths(st
 {
 	//Using the map route, find the corrseponding 'route' nodes that would connect the rooms together
 	//This function is not parallisable, but a child function is
-	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	std::queue<Node*> temporaryTargets;//'Route'.teleportTo nodes to travel to, on the way towards main end node
 	temporaryTargets.push(root);
@@ -217,21 +201,10 @@ std::queue<Node*> A_Star_Pathfinding_Defined_SegmentedCPU::FindRouteNodePaths(st
 		}
 		temporaryTargets.push(rn);
 	}
-	//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	//auto ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-	////std::cout << "A_Star_PathfindingCPU::FindRouteNodePaths() takes - " << ms << "ms" << std::endl;
-	//ExportData ed; ed.areaName = "A_Star_PathfindingCPU::FindRouteNodePaths()"; ed.timings = ms;
-	//ExportBenchmark::AddBenchmarkingInfo(ed);
 	return temporaryTargets;
 }
 std::stack<RoomStruct*> A_Star_Pathfinding_Defined_SegmentedCPU::BruteForcePathfindMaps()
 {
-	//TODO: All rooms are linked but some paths are unavailable. Maybe do a preliminary check of some sort?
-	
-	//We will start searching from our start room until we have a path from start to end. 
-	//This function is partially parallisable
-	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-
 	std::stack<RoomStruct*> mapRoute;//Rooms we need to go through
 	RoomStruct* currentRoomToSearch = startRoom;//Our current room that we're in
 
@@ -267,11 +240,6 @@ std::stack<RoomStruct*> A_Star_Pathfinding_Defined_SegmentedCPU::BruteForcePathf
 					route = route->GetParentRoom();
 				}
 				mapRoute.push(route);
-				//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-				//auto ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-				////std::cout << "A_Star_PathfindingCPU::BruteForcePathfindMaps() takes - " << ms << "ms" << std::endl;
-				//ExportData ed; ed.areaName = "A_Star_PathfindingCPU::BruteForcePathfindMaps()"; ed.timings = ms;
-				//ExportBenchmark::AddBenchmarkingInfo(ed);
 				return mapRoute;
 			};
 
@@ -322,7 +290,6 @@ bool A_Star_Pathfinding_Defined_SegmentedCPU::MultiThreadedPathfinding(std::queu
 	std::vector<std::thread> threads;
 	std::mutex lock;
 	bool once = false;
-	//std::chrono::steady_clock::time_point start;
 
 	for (int numberOfThreads = 0; numberOfThreads < threadsToUse; numberOfThreads++)
 	{
@@ -366,21 +333,10 @@ bool A_Star_Pathfinding_Defined_SegmentedCPU::MultiThreadedPathfinding(std::queu
 			}));
 	}
 
-	//if (!once)
-	//{
-	//	once = true;
-	//	start = std::chrono::steady_clock::now();
-
-	//}
 	std::for_each(threads.begin(), threads.end(), [](std::thread& t)
 		{
 			t.join();
 		});
-	//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	//auto ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-	//ExportData ed; ed.areaName = "A_Star_PathfindingCPU::MultiThreadedPathfinding()"; ed.timings = ms;
-	//ExportBenchmark::AddBenchmarkingInfo(ed);
-	//If one pathfinding path failed, then we return false
 	if (successful)
 	{
 		return true;
@@ -393,9 +349,6 @@ bool A_Star_Pathfinding_Defined_SegmentedCPU::MultiThreadedPathfinding(std::queu
 /// <summary>
 /// Designed to be as modular in use as possible
 /// </summary>
-/// <param name="startNode"></param>
-/// <param name="endNode"></param>
-/// <returns></returns>
 bool A_Star_Pathfinding_Defined_SegmentedCPU::DefaultAStar(Node* startNode, Node* endNode)
 {
 	//This function is the default implementation of A*.
@@ -440,7 +393,6 @@ bool A_Star_Pathfinding_Defined_SegmentedCPU::DefaultAStar(Node* startNode, Node
 void A_Star_Pathfinding_Defined_SegmentedCPU::CheckNeighbours(Node* current, Node* targetNode, std::set<Node*, ReverseComparator>* open, std::set<Node*>* closed)
 {
 	//SUMMARY: Neighbours does not gain any advantage by being multithreaded implicitly(In the function) - The cost of creating and joining threads may be too high to see a significant difference
-	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 #pragma region ORIGINAL
 	//For all neighbours : categorise them
 	for (auto neighbour : current->neighbours)
@@ -487,244 +439,3 @@ void A_Star_Pathfinding_Defined_SegmentedCPU::CheckNeighbours(Node* current, Nod
 
 	}
 #pragma endregion
-#pragma region LIMITED
-	////Last time we benchmarked, this was a heavy usage.
-	//int counter = threadsToUse * neighbourModifier;
-
-	//auto categoriseNeighbour = [&](auto neighbour) {
-	//	//std::cout << "Detatched thread with counter " << counter << std::endl;
-	//	//Parent node
-	//	if (neighbour == nullptr || neighbour->nodeType == Obstacle || closed->find(neighbour) != closed->end())
-	//	{
-	//		counter++;
-	//		return;
-	//	}
-	//	
-	//	if (neighbour->position == targetNode->position)
-	//	{
-	//		targetNode->SetParent(current);
-	//		targetNode->SetFCost(0);
-	//	}
-
-	//	int newGCost = current->GetGCost() + 1;
-	//	bool inToSearch = open->find(neighbour) == open->end();
-	//	//If neighbour is in either open, and the new path is better, recalculate
-	//	if (!inToSearch && neighbour->GetGCost() > newGCost)
-	//	{
-	//		neighbour->SetGCost(newGCost);
-	//		neighbour->SetFCost();
-	//		neighbour->SetParent(current);
-	//		counter++;
-	//		return;
-	//	}
-	//	//If neighbour is not in open, set
-	//	if (inToSearch)
-	//	{
-	//		int newHCost = Node::DistanceBetweenE(*neighbour, *targetNode);
-	//		neighbour->SetGCost(newGCost);
-	//		neighbour->SetHCost(newHCost);
-	//		neighbour->SetFCost();
-	//		neighbour->SetParent(current);
-	//		open->insert(neighbour);
-
-	//	}
-	//	counter++;
-	//	return;
-	//};
-
-	////For all neighbours : categorise them
-	//for (auto neighbour : current->neighbours)
-	//{
-	//	//std::cout << "Main thread with counter " << counter << std::endl;
-	//	counter--;
-	//	std::thread(categoriseNeighbour, neighbour).detach();
-	//	while (counter == 0)
-	//	{
-	//		//std::cout << "Main Neighbour thread waiting \n";
-	//	}
-
-	//}
-	//while (counter != (threadsToUse * neighbourModifier))
-	//{
-
-	//}
-#pragma endregion
-#pragma region FARM
-//		auto categoriseNeighbour = [&](auto neighbourNumber) {
-//			//std::cout << "Thread neighbour number " << neighbourNumber << std::endl;
-//
-//			Node* neighbour = current->neighbours[neighbourNumber];
-//		//std::cout << "Detatched thread with counter " << counter << std::endl;
-//		//Parent node
-//		if (neighbour == nullptr || neighbour->nodeType == Obstacle || closed->find(neighbour) != closed->end())
-//		{
-//			return;
-//		}
-//		
-//		if (neighbour->position == targetNode->position)
-//		{
-//			targetNode->SetParent(current);
-//			targetNode->SetFCost(0);
-//		}
-//
-//		int newGCost = current->GetGCost() + 1;
-//		bool inToSearch = open->find(neighbour) == open->end();
-//		//If neighbour is in either open, and the new path is better, recalculate
-//		if (!inToSearch && neighbour->GetGCost() > newGCost)
-//		{
-//			neighbour->SetGCost(newGCost);
-//			neighbour->SetFCost();
-//			neighbour->SetParent(current);
-//			return;
-//		}
-//		//If neighbour is not in open, set
-//		if (inToSearch)
-//		{
-//			int newHCost = Node::DistanceBetweenE(*neighbour, *targetNode);
-//			neighbour->SetGCost(newGCost);
-//			neighbour->SetHCost(newHCost);
-//			neighbour->SetFCost();
-//			neighbour->SetParent(current);
-//			open->insert(neighbour);
-//
-//		}
-//		return;
-//	};
-//std::vector<std::thread> threads;
-//std::mutex lock;
-//int neighbours = 7;
-//for (int numberOfThreads = 0; numberOfThreads < threadsToUse*neighbourModifier; numberOfThreads++)
-//{
-//	threads.push_back(std::thread([&]() {
-//		//Pathfind to each target node until we run out(by that point we should be in the same room
-//		while (neighbours >= 0)
-//		{
-//			lock.lock();
-//			if (neighbours < 0)
-//			{
-//				lock.unlock();
-//				return;
-//			}
-//			int i = neighbours;
-//			neighbours--;
-//			lock.unlock();
-//			categoriseNeighbour(i);
-//
-//		}
-//		}));
-//}
-//
-//std::for_each(threads.begin(), threads.end(), [&](std::thread& t)
-//	{
-//		t.join();
-//	});
-//
-#pragma endregion
-}
-
-#pragma region THREADPOOLING
-
-
-//
-//std::mutex neighbourMutex;
-//
-//void A_Star_Pathfinding_Defined_SegmentedCPU::CheckNeighbours(Node* current, int i, Node* targetNode, std::set<Node*, ReverseComparator>* open, std::set<Node*>* closed)
-//{
-//	std::unique_lock<std::mutex> lock(neighbourMutex); // I would like to check this here as i'm worried that perhaps, it's doing insertions wrong because they may be trying to insert at the same time
-//
-//	Node* neighbour = current->neighbours[i];
-//	//Parent node
-//	if (neighbour == nullptr || neighbour->nodeType == Obstacle || closed->find(neighbour) != closed->end())
-//	{
-//		return;
-//	}
-//
-//	//Target Node
-//	if (neighbour->xPosition == targetNode->xPosition && neighbour->yPosition == targetNode->yPosition)
-//	{
-//		targetNode->SetParent(current);
-//		targetNode->SetFCost(0);
-//	}
-//
-//	int newGCost = current->GetGCost() + Node::GetDistance(*neighbour, *current);
-//	bool inToSearch = open->find(neighbour) != open->end();
-//	//If neighbour is in either open, and the new path is better, recalculate
-//	if (inToSearch && neighbour->GetGCost() > newGCost)
-//	{
-//		int newHCost = Node::GetDistance(*neighbour, *targetNode);
-//		int newFCost = newGCost + newHCost;
-//		open->erase(neighbour);//This is needed otherwise it will not re-order the element when new values are put in
-//		neighbour->SetGCost(newGCost);
-//		neighbour->SetHCost(newHCost);
-//		neighbour->SetFCost(newFCost);
-//		neighbour->SetParent(current);
-//		open->insert(neighbour);
-//	}
-//	//If neighbour is not in open, set
-//	if (!inToSearch)
-//	{
-//		int newHCost = Node::GetDistance(*neighbour, *targetNode);
-//		int newFCost = newGCost + newHCost;
-//		neighbour->SetGCost(newGCost);
-//		neighbour->SetHCost(newHCost);
-//		neighbour->SetFCost(newFCost);
-//		neighbour->SetParent(current);
-//		open->insert(neighbour);
-//	}
-//}
-//void A_Star_Pathfinding_Defined_SegmentedCPU::TestCheck(int i)
-//{
-//}
-//
-////Xtree error: WARNING. Somehow we are making it through the while loop aka open size is not 0 but then getting open.begin() is null. We are getting a nullptr, trying to dereference that and then trying to get the distance.
-////	This causes errors with either Xtree or it points to the function and shows an empty 'a' side.
-////Additional : Xtree-672
-//bool A_Star_Pathfinding_Defined_SegmentedCPU::DefaultAStar(Node* startNode, Node* endNode, int threadsNum)
-//{
-//	std::set<Node*, ReverseComparator> open;
-//	std::set<Node*> closed;
-//	open.insert(startNode);
-//	ThreadPool threads(threadsNum);
-//	int iterations = 0;
-//	while (open.size() != 0 && iterations <= 1000000)
-//	{
-//
-//		//Find lowest fCost Open Node
-//		std::set<Node*>::iterator it = open.begin();//For some reason, it won't erase some points, so we need to point to the first one to erase instead of erasing the specific node
-//		if (it == open.end())
-//		{
-//			return false;
-//		}
-//		Node* current = *it;
-//
-//		//If we found end, stop pathfinding
-//		if (Node::GetDistance(*current, *endNode) < 1)
-//		{
-//			return true;
-//		}
-//
-//		//Restructure the node collections
-//		open.erase(it);
-//		closed.insert(current);
-//
-//		//Neighbours
-//		for (int i = 0; i < 8; i++)
-//		{
-//			Node* neighbour = current->neighbours[i];
-//			auto lamda = [this, i, &current, &neighbour, &open, &closed]() {CheckNeighbours(current, i, target, &open, &closed); };
-//			threads.doJob(lamda);
-//		}
-//		iterations++;
-//		while (threads.completedSection == false)
-//		{
-//		}
-//
-//	}
-//	return false;
-//}
-
-#pragma endregion
-
-
-#pragma endregion
-

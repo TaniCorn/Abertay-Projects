@@ -60,10 +60,6 @@ void FrankLunaShader::initShader(const wchar_t* vsFilename, const wchar_t* psFil
 	samplerDesc.MinLOD = 0;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	renderer->CreateSamplerState(&samplerDesc, &sampleState);
-
-	
-
-
 }
 
 

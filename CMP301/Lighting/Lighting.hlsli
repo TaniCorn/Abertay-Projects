@@ -297,45 +297,5 @@ float ShaderModel2(float intensity)
     {
         finalIntensity = 0;
     }
-    //if (finalIntensity > 0.9f)
-    //{
-    //    finalIntensity = 1.0f;
-    //}
-    //else if (finalIntensity > 0.8f)
-    //{
-    //    finalIntensity = 0.9f;
-    //}
-    //else if (finalIntensity > 0.7f)
-    //{
-    //    finalIntensity = 0.8f;
-    //}
-    //else if (finalIntensity > 0.6f)
-    //{
-    //    finalIntensity = 0.7f;
-    //}
-    //else if (finalIntensity > 0.5f)
-    //{
-    //    finalIntensity = 0.6f;
-    //}
-    //else if (finalIntensity > 0.4f)
-    //{
-    //    finalIntensity = 0.5f;
-    //}
-    //else if (finalIntensity > 0.3f)
-    //{
-    //    finalIntensity = 0.4f;
-    //}
-    //else if (finalIntensity > 0.2f)
-    //{
-    //    finalIntensity = 0.3f;
-    //}
-    //else if (finalIntensity > 0.1f)
-    //{
-    //    finalIntensity = 0.2f;
-    //}
-    //else if (finalIntensity > 0.0f)
-    //{
-    //    finalIntensity = 0.1f;
-    //}
         return finalIntensity;
 }
