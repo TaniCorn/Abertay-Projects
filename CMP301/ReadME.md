@@ -10,10 +10,8 @@ This project was written for my CMP301 module in 3rd year Abertay 2022-2023, whe
 
 What can you expect from this page?
 
-- [Initial project design and thoughts](#project-design)
-- [Feedback recieved and addressed](#individual-feedback-recieved)
-- [Retrospective](#retrospect)
-
+- [A small devlog about my process](#devlog)
+- [Application, report, and code](#information)
 
 What can you expect from the code?
 
@@ -58,7 +56,7 @@ Tessellation
 - Started drawing out how the tesselator worked
 - Tessellated squares, based on two triangles, and their midpoints.
 
-# Post-SFAS
+# Post
 
 Unfortunately I've not had much of a chance to go back and clean this up, as I've moved onto different concepts. However I'm still highly interested in rendering and would love the chance to tackle Vulkan or DX12.
 
